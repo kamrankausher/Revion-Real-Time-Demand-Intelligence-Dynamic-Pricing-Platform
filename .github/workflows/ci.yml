@@ -1,0 +1,58 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install linters
+        run: pip install flake8 black isort mypy
+      - name: Run flake8
+        run: flake8 src/ --max-line-length 120 --ignore E501,W503
+      - name: Check formatting
+        run: black --check src/
+      - name: Check imports
+        run: isort --check-only src/
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-cov
+      - name: Run tests
+        run: pytest tests/ -v --cov=src --cov-report=xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: coverage.xml
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t demand-intelligence:latest -f docker/Dockerfile .
+      - name: Test container
+        run: |
+          docker run -d --name test-api -p 8000:8000 demand-intelligence:latest
+          sleep 10
+          curl -f http://localhost:8000/health || exit 1
+          docker stop test-api

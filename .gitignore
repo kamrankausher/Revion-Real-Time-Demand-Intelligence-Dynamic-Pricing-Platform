@@ -1,0 +1,49 @@
+# ──────────────────── Python ────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ──────────────────── Virtual Environment ────────────────────
+venv/
+.venv/
+env/
+
+# ──────────────────── IDE ────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ──────────────────── Data ────────────────────
+data/raw/*.csv
+data/raw/*.zip
+data/processed/
+data/feature_store/
+
+# ──────────────────── Models & Experiments ────────────────────
+models/
+mlruns/
+lightning_logs/
+*.ckpt
+*.pkl
+*.joblib
+
+# ──────────────────── OS ────────────────────
+.DS_Store
+Thumbs.db
+
+# ──────────────────── Environment ────────────────────
+.env
+*.env
+
+# ──────────────────── Jupyter ────────────────────
+.ipynb_checkpoints/
+
+# ──────────────────── Misc ────────────────────
+*.log
