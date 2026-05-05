@@ -1,4 +1,4 @@
-# 🧠 ⚡ Revion
+#  ⚡Revion
 
 <div align="center">
 
