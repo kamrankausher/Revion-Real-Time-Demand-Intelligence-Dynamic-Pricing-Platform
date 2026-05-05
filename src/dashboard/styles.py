@@ -1,4 +1,4 @@
-"""Premium CSS styles for the Nexus Pricing Intelligence Dashboard."""
+"""Premium CSS styles for the Revion Pricing Intelligence Dashboard."""
 
 PREMIUM_CSS = """
 <style>
@@ -233,18 +233,69 @@ div[data-testid="stSidebar"] .stRadio label:hover {
     margin-left: auto;
 }
 
-/* ── Chart Container ── */
-.chart-container {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    backdrop-filter: blur(12px);
-    animation: fadeInUp 0.6s ease-out;
-    transition: border-color 0.3s;
+/* ── Container & Chart Glassmorphism ── */
+div[data-testid="stVerticalBlockBorderWrapper"] > div {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
 }
-.chart-container:hover {
-    border-color: var(--border-hover);
+div[data-testid="stVerticalBlockBorderWrapper"] > div::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%, rgba(0,0,0,0.2) 100%);
+    pointer-events: none;
+    border-radius: 16px;
+}
+div[data-testid="stVerticalBlockBorderWrapper"] > div:hover {
+    border-color: var(--border-hover) !important;
+    box-shadow: var(--glow-cyan), 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    transform: translateY(-2px);
+}
+
+/* ── Activity Feed ── */
+.activity-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+.feed-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(99, 179, 237, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.feed-item:hover {
+    background: rgba(15, 23, 42, 0.7);
+    border-color: rgba(99, 179, 237, 0.15);
+    transform: translateX(4px);
+}
+.feed-time {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.feed-content {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+.feed-content b {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 /* ── Info Badge ── */
@@ -290,20 +341,181 @@ div[data-testid="stSidebar"] .stRadio label:hover {
     margin-top: 48px;
 }
 
+/* ── Premium Tooltip ── */
+.tooltip-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(34, 211, 238, 0.05);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+.tooltip-container:hover {
+    background: rgba(34, 211, 238, 0.15);
+    border-color: rgba(34, 211, 238, 0.6);
+    box-shadow: var(--glow-cyan);
+}
+.tooltip-icon {
+    font-size: 13px;
+    color: var(--accent-cyan);
+    animation: pulse-glow 2s infinite;
+}
+.tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) translateX(10px);
+    width: 320px;
+    background: rgba(10, 15, 28, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--accent-cyan);
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(34, 211, 238, 0.1);
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    text-align: left;
+}
+.tooltip-container:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-50%) translateX(16px);
+}
+.tooltip-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.tooltip-body {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
 /* ── Streamlit Overrides ── */
 .stSelectbox label, .stTextInput label, .stNumberInput label, .stSlider label, .stDateInput label {
     color: var(--text-secondary) !important;
     font-weight: 500 !important;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem !important;
 }
+
+/* Input Fields Glassmorphism */
+.stSelectbox > div > div, .stTextInput > div > div, .stNumberInput > div > div, .stDateInput > div > div {
+    background: rgba(15, 23, 42, 0.4) !important;
+    border: 1px solid rgba(99, 179, 237, 0.15) !important;
+    border-radius: 8px !important;
+    color: var(--text-primary) !important;
+    transition: all 0.3s ease !important;
+}
+.stSelectbox > div > div:hover, .stTextInput > div > div:hover, .stNumberInput > div > div:hover, .stDateInput > div > div:hover {
+    border-color: rgba(34, 211, 238, 0.4) !important;
+    background: rgba(15, 23, 42, 0.7) !important;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.1) !important;
+}
+
+/* Premium Primary Button */
 button[kind="primary"] {
     background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)) !important;
     border: none !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px;
+    border-radius: 10px !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 15px rgba(34, 211, 238, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+button[kind="primary"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 25px rgba(34, 211, 238, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    filter: brightness(1.1) !important;
+}
+button[kind="primary"]:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 2px 10px rgba(34, 211, 238, 0.2) !important;
+}
+
+/* Premium Secondary Button */
+button[kind="secondary"] {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(99, 179, 237, 0.2) !important;
+    color: var(--text-primary) !important;
     font-weight: 600 !important;
     border-radius: 10px !important;
+    backdrop-filter: blur(12px) !important;
+    transition: all 0.3s ease !important;
 }
-.stDataFrame { border-radius: 12px !important; overflow: hidden; }
-h1, h2, h3 { color: var(--text-primary) !important; }
-.stMarkdown p { color: var(--text-secondary); }
+button[kind="secondary"]:hover {
+    border-color: rgba(34, 211, 238, 0.5) !important;
+    background: rgba(34, 211, 238, 0.05) !important;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.1) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Vercel-style Segmented Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.4);
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid rgba(99, 179, 237, 0.1);
+    backdrop-filter: blur(10px);
+}
+.stTabs [data-baseweb="tab"] {
+    height: 40px;
+    white-space: pre-wrap;
+    background: transparent;
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none !important;
+}
+.stTabs [data-baseweb="tab"]:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.03);
+}
+.stTabs [aria-selected="true"] {
+    background: rgba(34, 211, 238, 0.1) !important;
+    color: var(--accent-cyan) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(34, 211, 238, 0.2) !important;
+}
+.stTabs [data-baseweb="tab-highlight"] {
+    background: transparent !important;
+}
+
+/* Dataframe and General Elements */
+.stDataFrame { border-radius: 12px !important; overflow: hidden; border: 1px solid rgba(99, 179, 237, 0.1); }
+h1, h2, h3 { color: var(--text-primary) !important; letter-spacing: -0.5px; }
+.stMarkdown p { color: var(--text-secondary); line-height: 1.6; }
 .stDivider { border-color: var(--border) !important; }
+
+/* 3D Glass Effect overlay for cards */
+.metric-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(0,0,0,0.2) 100%);
+    pointer-events: none;
+    border-radius: 16px;
+}
 </style>
 """
