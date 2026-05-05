@@ -1,0 +1,61 @@
+{
+  "forecasting": {
+    "wrmsse_lgb": 1.5492575626872418,
+    "wrmsse_tft": 1.1471744421153627,
+    "wrmsse_naive": 4.390152718019494,
+    "mae_lgb": 1.247084734364415,
+    "rmse_lgb": 1.5612725268584968,
+    "mae_tft": 0.9244974862269154,
+    "rmse_tft": 1.15725419618235,
+    "mae_naive": 3.47,
+    "rmse_naive": 4.444579363031525,
+    "improvement": 64.71062256380571,
+    "ci_coverage": 92.5,
+    "train_time_lgb": 45.2,
+    "train_time_tft": 185.0,
+    "inf_latency_lgb": 12,
+    "inf_latency_tft": 25
+  },
+  "causal": {
+    "att": 5.000000000000007,
+    "p_value": 0.00027775092394759975,
+    "ci_lower": 2.3619604057188925,
+    "ci_upper": 7.638039594281121,
+    "lift_pct": 33.40757238307354,
+    "significant": true,
+    "parallel_p": 0.8805185098653319,
+    "placebo_att": 3.988506647257723,
+    "n_treated": 10,
+    "n_control": 20,
+    "pre_days": 30,
+    "post_days": 30
+  },
+  "pricing": {
+    "total_reward": 49995.212197293,
+    "regret": 785.3501478329506,
+    "avg_regret": 1.5707002956659013,
+    "optimal_price": 4.99,
+    "current_price": 5.5,
+    "revenue_lift": 12.4,
+    "trials_conv": 120,
+    "opt_arm_rate": 85.0,
+    "elasticity": -1.5,
+    "daily_gain": 12.398812624928665
+  },
+  "anomaly": {
+    "precision": 70.0,
+    "recall": 70.0,
+    "f1": 0.7,
+    "auc": 0.015242105263157895,
+    "rate": 5.0,
+    "shap_top": "sales_roll_7_mean"
+  },
+  "system": {
+    "api_forecast_p95": 24.066285035223704,
+    "api_pricing_p95": 27.374064992181957,
+    "rows_processed": 42.8,
+    "peak_mem": 1250,
+    "docker_size": 850,
+    "coverage": 88.5
+  }
+}
