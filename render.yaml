@@ -1,0 +1,29 @@
+services:
+  # FastAPI Backend Service
+  - type: web
+    name: revion-api
+    env: python
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: uvicorn src.api.app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHONPATH
+        value: src
+
+  # Streamlit Dashboard Service
+  - type: web
+    name: revion-dashboard
+    env: python
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: streamlit run src/dashboard/streamlit_app.py --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHONPATH
+        value: src
+      - key: API_URL
+        fromService:
+          type: web
+          name: revion-api
+          envVarKey: RENDER_EXTERNAL_URL
