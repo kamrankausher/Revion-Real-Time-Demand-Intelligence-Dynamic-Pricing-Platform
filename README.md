@@ -128,6 +128,15 @@ This starts:
 - **Dashboard**: `http://localhost:8501` (Streamlit)
 - **MLflow**: `http://localhost:5000` (Experiment tracking)
 
+### Cloud Deployment (Render)
+
+This project is configured for a 1-click deployment on [Render](https://render.com) using Infrastructure as Code (`render.yaml`).
+
+1. Sign up for Render and connect your GitHub account.
+2. Go to your Render Dashboard and click **New > Blueprint**.
+3. Select this repository and click **Connect**.
+4. Render will automatically detect the `render.yaml` configuration and deploy both the FastAPI Backend and Streamlit Dashboard simultaneously.
+
 ---
 
 ## 📊 Component Details
