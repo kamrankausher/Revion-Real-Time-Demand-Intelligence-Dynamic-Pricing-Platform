@@ -10,6 +10,8 @@ services:
         value: 10000
       - key: PYTHONPATH
         value: src
+      - key: PYTHON_VERSION
+        value: "3.10.13"
 
   # Streamlit Dashboard Service
   - type: web
@@ -22,6 +24,8 @@ services:
         value: 10000
       - key: PYTHONPATH
         value: src
+      - key: PYTHON_VERSION
+        value: "3.10.13"
       - key: API_URL
         fromService:
           type: web
